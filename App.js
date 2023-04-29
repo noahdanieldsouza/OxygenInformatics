@@ -1,4 +1,4 @@
-
+import 'react-native-gesture-handler';
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import Tutorial from './src/navigation/video';
@@ -20,7 +20,9 @@ const Stack = createNativeStackNavigator();
 
 function App() {
   return (
+    <NavigationContainer>
    <Navigation> </Navigation>
+   </NavigationContainer>
   );
 }
 

@@ -10,3 +10,5 @@ export const StyledButton = ({title}) => {
         ></Button>
     )
 }
+
+export default StyledButton
