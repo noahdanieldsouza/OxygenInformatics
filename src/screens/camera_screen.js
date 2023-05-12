@@ -9,16 +9,31 @@ const CameraScreen = ({navigation})  => {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const [mediaPermissions, requestMediaPermissions] = useState(MediaLibrary.requestPermissionsAsync)
+  const [start, setStart] = useState(false)
   const cameraRef = useRef() 
+ 
   const snap = async () => {
-    if (cameraRef){
-        const photo = await cameraRef.current.takePictureAsync()
-        console.log(photo)
-        MediaLibrary.saveToLibraryAsync(photo.uri)
-      navigation.navigate("CreateScreen")
-    }
+    
+    console.log(start)
+    
+     if (!start) {
+        setStart(true);
+        let video = await cameraRef.current.recordAsync()
+        console.log("video", video);
+      } else {
+        setStart(false);
+        video.stopRecording();
+        console.log ("final", video)
+        MediaLibrary.saveToLibraryAsync(video.uri)
+        navigation.navigate("CreateScreen")
+      }
 
-  }
+          
+        }
+       
+    
+
+  
 
 
 
@@ -39,6 +54,7 @@ function getMediaPermission ()  {
      }
  }
 
+
 useEffect(()=> {
 getCameraPermission()
 getMediaPermission()
@@ -52,7 +68,7 @@ getMediaPermission()
 
   return (
    
-    <TouchableOpacity onPress= {snap}><Camera ref = {(camera) => cameraRef.current = camera} style = {{wdith: "100%", height: "100%"}}>
+    <TouchableOpacity onPress= {snap}><Camera  ref={(ref) => {cameraRef.current = ref;}} style = {{wdith: "100%", height: "100%"}}>
       
     </Camera></TouchableOpacity>
       

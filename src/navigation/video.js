@@ -23,13 +23,10 @@ const Tutorial = () => {
     return(
         
         <>
-        <SafeAreaView style={styles.container}>
-       
-   
-    </SafeAreaView>
+        <SafeAreaView/>
     <FlatList
         data={DATA}
-        renderItem={({item}) => <Card>
+        renderItem={({item}) => <Card style= {styles.item}>
             <Card.Title title = {item.name}/>
         </Card>}
         keyExtractor={item => item.id}
