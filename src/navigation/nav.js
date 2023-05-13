@@ -1,6 +1,6 @@
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import CreateScreen from './create';
+import CreateScreen from '../screens/create';
 import CameraScreen from '../screens/camera_screen';
 const CameraStack = createNativeStackNavigator();
 

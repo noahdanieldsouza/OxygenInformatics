@@ -3,9 +3,9 @@
 import * as React from 'react';
 import { View, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from './home';
-import Tutorial from './video';
-import CreateScreen from './create';
+import HomeScreen from '../screens/home';
+import Tutorial from '../screens/browse';
+import CreateScreen from '../screens/create';
 import { NavigationContainer } from '@react-navigation/native';
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { Entypo } from '@expo/vector-icons';

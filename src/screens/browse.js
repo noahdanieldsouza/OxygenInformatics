@@ -1,5 +1,6 @@
 import React from "react"
 import { StyleSheet, Text, View, FlatList, ScrollView, SafeAreaView } from "react-native"
+import VideoCard from "../components/videoCard"
 import { Card } from "react-native-paper"
 
 DATA = [
@@ -26,9 +27,9 @@ const Tutorial = () => {
         <SafeAreaView/>
     <FlatList
         data={DATA}
-        renderItem={({item}) => <Card style= {styles.item}>
-            <Card.Title title = {item.name}/>
-        </Card>}
+        renderItem={({item}) => <VideoCard style= {styles.item}>
+            <VideoCard.Title title = {item.name}/>
+        </VideoCard>}
         keyExtractor={item => item.id}
       />
      </>
