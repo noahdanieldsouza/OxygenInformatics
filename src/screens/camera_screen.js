@@ -9,66 +9,44 @@ const CameraScreen = ({navigation})  => {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const [mediaPermissions, requestMediaPermissions] = useState(MediaLibrary.requestPermissionsAsync)
-  const [start, setStart] = useState(false)
-  const cameraRef = useRef() 
+  const [isRecording, setIsRecording] = useState(false)
+  const [cameraRef, setCameraRef] = useState(null) 
  
-  const snap = async () => {
-    
-    console.log(start)
-    
-     if (!start) {
-        setStart(true);
-        let video = await cameraRef.current.recordAsync()
-        console.log("video", video);
-      } else {
-        setStart(false);
-        video.stopRecording();
-        console.log ("final", video)
-        MediaLibrary.saveToLibraryAsync(video.uri)
-        navigation.navigate("CreateScreen")
-      }
-
-          
-        }
-       
-    
-
   
+  const start = async () => {
+    console.log("start")
+    setIsRecording(true);
+    const videoRecordPromise = cameraRef.recordAsync();
+    const videoData = await videoRecordPromise;
+    setIsRecording(false);
+    await saveVideoToMediaLibrary(videoData);
+  };
+
+  const stop= async () => {
+    console.log("stop")
+    setIsRecording(false);
+    cameraRef.stopRecording();
+  };
 
 
+  const saveVideoToMediaLibrary = async (videoData) => {
+    const asset = await MediaLibrary.createAssetAsync(videoData.uri);
+    await MediaLibrary.createAlbumAsync('My Videos', asset, false);
+    alert('Video saved to media library!');
+  };
 
- function getCameraPermission ()  {
-   if (permission){
-    
-   }
-    else{
-       requestPermission( Camera.requestCameraPermissionsAsync )
-    }
-}
-function getMediaPermission ()  {
-    if (mediaPermissions){
-     
-    }
-     else{
-        requestMediaPermissions( MediaLibrary.requestPermissionsAsync )
-     }
- }
-
-
-useEffect(()=> {
-getCameraPermission()
-getMediaPermission()
-}
-)
-   
- 
-
-
-  
+  useEffect(() => {
+    (async () => {
+      await Camera.requestCameraPermissionsAsync();
+      await MediaLibrary.requestPermissionsAsync();
+    })();
+  }, []);
 
   return (
    
-    <TouchableOpacity onPress= {snap}><Camera  ref={(ref) => {cameraRef.current = ref;}} style = {{wdith: "100%", height: "100%"}}>
+    <TouchableOpacity onPress= {isRecording? stop: start}><Camera ref={(ref) => {
+        setCameraRef(ref);
+      }} style = {{width: "100%", height: "100%"}}>
       
     </Camera></TouchableOpacity>
       
