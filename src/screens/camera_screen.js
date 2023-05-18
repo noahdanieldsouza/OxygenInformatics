@@ -1,4 +1,5 @@
 import { Camera, CameraType } from 'expo-camera';
+import CreateScreen from './create';
 import { useState, useEffect, useRef } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as MediaLibrary from 'expo-media-library'
@@ -33,6 +34,7 @@ const CameraScreen = ({navigation})  => {
     const asset = await MediaLibrary.createAssetAsync(videoData.uri);
     await MediaLibrary.createAlbumAsync('My Videos', asset, false);
     alert('Video saved to media library!');
+    navigation.navigate(CreateScreen)
   };
 
   useEffect(() => {

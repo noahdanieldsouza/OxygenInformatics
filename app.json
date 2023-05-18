@@ -1,7 +1,10 @@
 {
   "expo": {
-    "name": "OxygenInformatics",
-    "slug": "OxygenInformatics",
+  
+      "scheme": "yourscheme",
+    
+    "name": "Orchestrate",
+    "slug": "Orchestrate",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -10,6 +13,7 @@
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
+     
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -18,6 +22,7 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.orchestrate.myapp",
       "supportsTablet": true
     },
     "android": {

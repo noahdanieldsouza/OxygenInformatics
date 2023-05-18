@@ -10,6 +10,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { Entypo } from '@expo/vector-icons';
 import { CreateNavigation } from './nav';
+import GoogleLogin from '../screens/googlelogin';
 
 
 const Tab = createBottomTabNavigator();
@@ -45,7 +46,7 @@ function Nav() {
       >
     
     
-<Tab.Screen  name = "Home" component = {HomeScreen}></Tab.Screen> 
+<Tab.Screen  name = "Login" component = {GoogleLogin}></Tab.Screen> 
 <Tab.Screen name = "Browse" component = {Tutorial}></Tab.Screen> 
 <Tab.Screen name = "Create" component = {CreateNavigation}></Tab.Screen> 
     </Tab.Navigator>

@@ -15,12 +15,16 @@
     "@react-navigation/native-stack": "^6.9.12",
     "ad-b2c-react-native": "^2.0.1",
     "expo": "^46.0.0",
+    "expo-auth-session": "~3.7.4",
+    "expo-av": "~12.0.4",
     "expo-camera": "~12.5.0",
+    "expo-crypto": "~11.0.0",
+    "expo-media-library": "~14.2.0",
     "expo-status-bar": "~1.4.2",
-    "expo-web-browser": "^12.1.1",
+    "expo-web-browser": "~11.0.0",
     "native": "^0.2.0",
     "react": "18.0.0",
-    "react-native": "0.69.6",
+    "react-native": "0.69.9",
     "react-native-gesture-handler": "~2.5.0",
     "react-native-paper": "^5.5.2",
     "react-native-safe-area-context": "4.3.1",
@@ -29,8 +33,7 @@
     "react-native-video": "^5.2.1",
     "react-native-video-player": "^0.14.0",
     "styled-components": "^5.3.6",
-    "expo-media-library": "~14.2.0",
-    "expo-av": "~12.0.4"
+    "expo-random": "~12.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
