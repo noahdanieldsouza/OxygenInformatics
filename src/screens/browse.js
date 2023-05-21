@@ -25,13 +25,16 @@ const Tutorial = () => {
         
         <>
         <SafeAreaView/>
+
     <FlatList
+    style = {styles.container}
         data={DATA}
         renderItem={({item}) => <VideoCard style= {styles.item}>
             <VideoCard.Title title = {item.name}/>
         </VideoCard>}
         keyExtractor={item => item.id}
       />
+    
      </>
     
     )
@@ -40,14 +43,16 @@ const Tutorial = () => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
+     
     
   
     },
     item: {
-      backgroundColor: '#f9c2ff',
+      backgroundColor: 'ffff',
       padding: 20,
       marginVertical: 8,
       marginHorizontal: 16,
+   
     },
     title: {
       fontSize: 32,
