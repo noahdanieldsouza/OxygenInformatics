@@ -6,6 +6,7 @@ import Navigation from './src/navigation/navbar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Nav from './src/navigation/navbar';
+import {RecordingContextProvider} from "./src/infastructure/videocontext"
 
 
 function HomeScreen() {
@@ -20,9 +21,11 @@ const Stack = createNativeStackNavigator();
 
 function App() {
   return (
+    <RecordingContextProvider>
     <NavigationContainer>
    <Navigation> </Navigation>
    </NavigationContainer>
+   </RecordingContextProvider>
   );
 }
 

@@ -1,26 +1,11 @@
-import React from "react"
+import React, { useContext } from "react"
 import { StyleSheet, Text, View, FlatList, ScrollView, SafeAreaView } from "react-native"
 import VideoCard from "../components/videoCard"
-import { Card } from "react-native-paper"
+import {RecordingContext} from "../infastructure/videocontext"
 
-DATA = [
 
-  //will be video imports
-    {
-        id: 0,
-        name: "Video0"
-    },
-    {
-        id: 1,
-        name: "Video1"
-    },
-    {
-        id: 2,
-        name: "Video2"
-    }
-]
 const Tutorial = () => {
-
+const {recordings} = useContext(RecordingContext)
     return(
         
         <>
@@ -28,11 +13,8 @@ const Tutorial = () => {
 
     <FlatList
     style = {styles.container}
-        data={DATA}
-        renderItem={({item}) => <VideoCard style= {styles.item}>
-            <VideoCard.Title title = {item.name}/>
-        </VideoCard>}
-        keyExtractor={item => item.id}
+        data={recordings}
+        renderItem= {({item}) =>  {console.log(item);  return(<VideoCard uri = {item}> </VideoCard>)}}
       />
     
      </>
