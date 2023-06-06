@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useContext } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as MediaLibrary from 'expo-media-library'
 import { RecordingContext } from '../infastructure/videocontext';
+import { Submission } from './create_details';
 
 
 const CameraScreen = ({navigation})  => {
@@ -14,12 +15,14 @@ const CameraScreen = ({navigation})  => {
   const [isRecording, setIsRecording] = useState(false)
   const [cameraRef, setCameraRef] = useState(null) 
   const {add, recordings} = useContext(RecordingContext)
-  console.log(recordings)
+ 
+
 
  
   
   const start = async () => {
-    console.log("start")
+    
+    
     setIsRecording(true);
     const videoRecordPromise = cameraRef.recordAsync();
     const videoData = await videoRecordPromise;
@@ -29,20 +32,20 @@ const CameraScreen = ({navigation})  => {
   };
 
   const stop= async () => {
-    console.log("stop")
+   
     setIsRecording(false);
     cameraRef.stopRecording();
    
   };
 
+  
 
   const saveVideoToMediaLibrary = async (videoData) => {
-    const asset = await MediaLibrary.createAssetAsync(videoData.uri);
-    add(videoData.uri)
-    await MediaLibrary.createAlbumAsync('My Videos', asset, false);
-    alert('Video saved to media library!');
+
+    add(videoData)
    
-    navigation.navigate(CreateScreen)
+   
+    navigation.navigate('SubmissionScreen');
 
   };
 

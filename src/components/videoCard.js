@@ -1,71 +1,63 @@
 
-import { Video,ResizeMode } from 'expo-av';
-import React, {useState, useRef} from 'react';
-import { StyleSheet, View, Button} from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Card } from 'react-native-paper';
+import { Audio } from 'expo-av';
+import StyledButton from './button';
 
+const VideoPlayer = ({uri, instrument}) => {
 
- const VideoCard = ({uri, style}) => {
+  const sound = useRef(new Audio.Sound());
 
-console.log("Card", uri)
+  useEffect(() => {
+    return () => {
+      sound.current.unloadAsync();
+    };
+  }, []);
 
-const video = useRef(null);
-const [status, setStatus] = useState({});
-return (
-  <View style={styles.container}>
-    <Video
-      ref={video}
-      style={styles.video}
-      source={{
-        uri: uri,
-      }}
-      useNativeControls
-      resizeMode={ResizeMode.CONTAIN}
-      isLooping
-      onPlaybackStatusUpdate={status => setStatus(() => status)}
-    />
-    <View style={styles.buttons}>
-      <Button
-        title={status.isPlaying ? 'Pause' : 'Play'}
-        onPress={() =>
-          status.isPlaying ? video.current.pauseAsync() : video.current.playAsync()
-        }
-      />
+  const playAudio = async () => {
+    try {
+      const status = await sound.current.getStatusAsync();
+      if (status.isLoaded) {
+        await sound.current.unloadAsync();
+      }
+      await sound.current.loadAsync({ uri: uri });
+      await sound.current.playAsync();
+    } catch (error) {
+      console.log('Error playing audio:', error);
+    }
+  };
+
+  return (
+    <Card>
+      <Card.Title> </Card.Title>
+      <View>
+    <Card.Cover    resizeMode = "contain" source = {require('../assets/bassoon.png')}/>
+    <StyledButton title = {"play"}style = {styles.button} onPress={ playAudio}/> 
     </View>
-  </View>
-);
     
-      
-           
-       
-
-           
-         
-            
-       
-
-        
-         
-   
-
-}
-
-export default VideoCard
+  
+    </Card>
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      backgroundColor: '#ecf0f1',
-    },
-    video: {
-      alignSelf: 'center',
-      width: 320,
-      height: 200,
-    },
-    buttons: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-  });
+  container: {
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  button: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+  },
+})
+
+export default VideoPlayer;

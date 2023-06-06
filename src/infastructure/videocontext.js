@@ -6,6 +6,8 @@ export const RecordingContext = createContext()
 
 export const RecordingContextProvider = ({children}) => {
     const [recordings, setRecordings] = useState([])
+   
+      
 
     const add = (recording) => {
         setRecordings([...recordings, recording])
@@ -34,8 +36,10 @@ export const RecordingContextProvider = ({children}) => {
             }
           };
       
-      
-
+  
+          const clearRecents = () => {
+            setRecordings([])
+        }
       useEffect(() => {
         loadRecents();
       }, []);
@@ -45,7 +49,7 @@ export const RecordingContextProvider = ({children}) => {
       }, [recordings]);
 
     return(
-    <RecordingContext.Provider value = {{ recordings, add: add }}>
+    <RecordingContext.Provider value = {{ recordings, add: add, clear: clearRecents }}>
 {children}
     </RecordingContext.Provider>
     )

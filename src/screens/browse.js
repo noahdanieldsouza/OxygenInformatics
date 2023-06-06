@@ -2,19 +2,20 @@ import React, { useContext } from "react"
 import { StyleSheet, Text, View, FlatList, ScrollView, SafeAreaView } from "react-native"
 import VideoCard from "../components/videoCard"
 import {RecordingContext} from "../infastructure/videocontext"
+import StyledButton from "../components/button"
 
 
 const Tutorial = () => {
-const {recordings} = useContext(RecordingContext)
+const {recordings, clear} = useContext(RecordingContext)
     return(
         
         <>
         <SafeAreaView/>
-
+<StyledButton title = {"clear"} onPress = {clear}> </StyledButton>
     <FlatList
     style = {styles.container}
         data={recordings}
-        renderItem= {({item}) =>  {console.log(item);  return(<VideoCard uri = {item}> </VideoCard>)}}
+        renderItem= {({item}) =>  {  return(<VideoCard uri = {item.uri}> </VideoCard>)}}
       />
     
      </>
