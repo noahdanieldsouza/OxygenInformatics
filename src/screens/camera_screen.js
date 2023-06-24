@@ -44,8 +44,8 @@ const CameraScreen = ({navigation})  => {
 
     add(videoData)
    
-   
-    navigation.navigate('SubmissionScreen');
+   console.log("First", videoData.uri)
+    navigation.navigate('SubmissionScreen', {uri: videoData.uri} );
 
   };
 
