@@ -7,7 +7,10 @@ export const RecordingContext = createContext()
 export const RecordingContextProvider = ({children}) => {
     const [recordings, setRecordings] = useState([])
    
-      
+     
+    const update = (recording, id) => {
+      setRecordings(recordings[id] = recording)
+    }
 
     const add = (recording) => {
         setRecordings([...recordings, recording])
@@ -49,7 +52,7 @@ export const RecordingContextProvider = ({children}) => {
       }, [recordings]);
 
     return(
-    <RecordingContext.Provider value = {{ recordings, add: add, clear: clearRecents }}>
+    <RecordingContext.Provider value = {{ recordings, add: add, clear: clearRecents, update: update }}>
 {children}
     </RecordingContext.Provider>
     )

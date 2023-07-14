@@ -15,7 +15,7 @@ const {recordings, clear} = useContext(RecordingContext)
     <FlatList
     style = {styles.container}
         data={recordings}
-        renderItem= {({item}) =>  {  return(<VideoCard uri = {item.uri}> </VideoCard>)}}
+        renderItem= {({item}) =>  {   return(<VideoCard uri = {item.uri}> </VideoCard>)}}
       />
     
      </>

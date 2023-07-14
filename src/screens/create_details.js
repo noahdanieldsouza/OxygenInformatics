@@ -5,15 +5,15 @@ import { RecordingContext } from '../infastructure/videocontext';
 import StyledButton from "../components/button";
 import { SafeArea } from "../components/safearea";
 
-export const Submission = (uri) => {
-const {recordings, clear} = useContext(RecordingContext)
+export const Submission = ({ navigation, route }) => {
+const {recordings, clear, update} = useContext(RecordingContext)
+const [title, setTitle] = useState ("unamed")
+const [instrument, setInstrument] = useState ("no instrument added")
 const video = useRef()
-console.log("Submission", uri.route.params.uri)
-const submission = {
-    Title : null,
-    Instrument : null,
-    Media : {uri}
-}
+const [submission, setSubmission] = useState(route.params)
+const { uri } = route.params.uri;
+console.log("Submission", uri)
+
 const [isPlaying, setIsPlaying] = useState(false);
 
 const togglePlayPause = async () => {
@@ -24,18 +24,29 @@ const togglePlayPause = async () => {
   }
   setIsPlaying(!isPlaying);
 };
+
+const Update = () => {
+  setSubmission(submission.title = title, submission.instrument = instrument, submission.uri = uri)
+  update(submission, 0)
+  console.log("added", submission)
+
+}
     return(
         
       <View style={styles.container}>
+        <View styles = {styles.inputContainer} >
+        <TextInput style = {styles.input} onChangeText = {(text) => setTitle(text)}> </TextInput>
+        <TextInput style = {styles.input} onChangeText = {(text) => setInstrument(text)}> </TextInput>
+        </View>
       <Video
         ref={video}
         style={styles.video}
         source={{
-          uri: uri.route.params.uri,
+          uri: uri,
         }}
         useNativeControls
         resizeMode={ResizeMode.COVER}
-        isLooping
+        isLooping = {false}
         onPlaybackStatusUpdate={status => {
           if (status.isPlaying !== isPlaying) {
             setIsPlaying(status.isPlaying);
@@ -50,7 +61,7 @@ const togglePlayPause = async () => {
         isPlaying ? video.current.pauseAsync() : video.current.playAsync()
       }
     />
-       
+       <StyledButton onPress = {Update}title = {"Submit"}> </StyledButton>
       </View>
     </View>
     )
@@ -65,5 +76,18 @@ const styles = StyleSheet.create({
     video: {
       width: 300,
       height: 200,
+    },
+    inputContainer:{
+      flex: 1
+
+    },
+    input: {
+      width: 300,
+      height: 40,
+      margin: 12,
+      borderWidth: 1,
+      padding: 10,
+      justifyContent: 'center',
+      alignItems: 'center'
     },
   });

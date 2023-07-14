@@ -15,7 +15,11 @@ const CameraScreen = ({navigation})  => {
   const [isRecording, setIsRecording] = useState(false)
   const [cameraRef, setCameraRef] = useState(null) 
   const {add, recordings} = useContext(RecordingContext)
- 
+ const [submission, setSubmission] = useState(
+ {uri: "", 
+instrument: "",
+title: ""}
+ )
 
 
  
@@ -27,7 +31,9 @@ const CameraScreen = ({navigation})  => {
     const videoRecordPromise = cameraRef.recordAsync();
     const videoData = await videoRecordPromise;
     setIsRecording(false);
+    setSubmission(submission.uri = videoData.uri)
     await saveVideoToMediaLibrary(videoData);
+    
   
   };
 
@@ -42,10 +48,10 @@ const CameraScreen = ({navigation})  => {
 
   const saveVideoToMediaLibrary = async (videoData) => {
 
-    add(videoData)
+    add(submission)
    
    console.log("First", videoData.uri)
-    navigation.navigate('SubmissionScreen', {uri: videoData.uri} );
+    navigation.navigate('SubmissionScreen', {uri: submission} );
 
   };
 

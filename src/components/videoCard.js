@@ -5,9 +5,10 @@ import { Card } from 'react-native-paper';
 import { Audio } from 'expo-av';
 import StyledButton from './button';
 
-const VideoPlayer = ({uri, instrument}) => {
+const VideoPlayer = ({uri}) => {
 
   const sound = useRef(new Audio.Sound());
+  console.log("videocard", uri)
 
   useEffect(() => {
     return () => {
