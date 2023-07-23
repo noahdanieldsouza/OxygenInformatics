@@ -5,9 +5,12 @@ import { Card } from 'react-native-paper';
 import { Audio } from 'expo-av';
 import StyledButton from './button';
 
-const VideoPlayer = ({uri}) => {
+const VideoPlayer = ({video}) => {
 
   const sound = useRef(new Audio.Sound());
+  const uri = video.uri
+  const title = video.title
+  const name = video.instrument
   console.log("videocard", uri)
 
   useEffect(() => {
@@ -31,10 +34,11 @@ const VideoPlayer = ({uri}) => {
 
   return (
     <Card>
-      <Card.Title> </Card.Title>
+      <Card.Title>{title} </Card.Title>
       <View>
+     
     <Card.Cover    resizeMode = "contain" source = {require('../assets/bassoon.png')}/>
-    <StyledButton title = {"play"}style = {styles.button} onPress={ playAudio}/> 
+    <StyledButton title = {name}style = {styles.button} onPress={ playAudio}/> 
     </View>
     
   

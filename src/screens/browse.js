@@ -1,46 +1,34 @@
-import React, { useContext } from "react"
-import { StyleSheet, Text, View, FlatList, ScrollView, SafeAreaView } from "react-native"
-import VideoCard from "../components/videoCard"
-import {RecordingContext} from "../infastructure/videocontext"
+import React, {useState, useContext} from "react"
+import {Text, View, SafeAreaView, Button, StyleSheet} from "react-native"
 import StyledButton from "../components/button"
+import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import { Video } from 'expo-av';
+import { RecordingContext } from "../infastructure/videocontext"
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 
-const Tutorial = () => {
-const {recordings, clear} = useContext(RecordingContext)
-    return(
-        
-        <>
-        <SafeAreaView/>
-<StyledButton title = {"clear"} onPress = {clear}> </StyledButton>
-    <FlatList
-    style = {styles.container}
-        data={recordings}
-        renderItem= {({item}) =>  {   return(<VideoCard uri = {item.uri}> </VideoCard>)}}
-      />
-    
-     </>
-    
-    )
+
+const BrowseScreen = ({navigation}) => {
+const [videoDetails, setVideoDetails ] = useState([])
+const {recordings} = useContext(RecordingContext)
+console.log(recordings)
+
+
+return(
+    <Text> Browse</Text>
+)
 }
 
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-     
-    
-  
-    },
-    item: {
-      backgroundColor: 'ffff',
-      padding: 20,
-      marginVertical: 8,
-      marginHorizontal: 16,
-   
-    },
-    title: {
-      fontSize: 32,
-    },
-  });
-  
+export default BrowseScreen
 
-export default Tutorial
+const styles = StyleSheet.create({
+    container:{
+         
+         flexDirection: "row", 
+         justifyContent:"center"
+
+    }
+}
+
+)
+

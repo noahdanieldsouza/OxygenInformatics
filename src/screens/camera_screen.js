@@ -1,5 +1,5 @@
 import { Camera, CameraType } from 'expo-camera';
-import CreateScreen from './create';
+import CreateScreen from './browse';
 import { useState, useEffect, useRef, useContext } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as MediaLibrary from 'expo-media-library'
@@ -18,7 +18,8 @@ const CameraScreen = ({navigation})  => {
  const [submission, setSubmission] = useState(
  {uri: "", 
 instrument: "",
-title: ""}
+title: "", 
+id: null}
  )
 
 
@@ -51,7 +52,7 @@ title: ""}
     add(submission)
    
    console.log("First", videoData.uri)
-    navigation.navigate('SubmissionScreen', {uri: submission} );
+    navigation.navigate('SubmissionScreen', {uri: submission, source: "Camera"} );
 
   };
 

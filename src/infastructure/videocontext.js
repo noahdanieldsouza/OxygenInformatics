@@ -1,5 +1,5 @@
 import React, {useState, createContext, useEffect} from "react"
-import {AsyncStorage} from "react-native"
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export const RecordingContext = createContext()
@@ -7,10 +7,14 @@ export const RecordingContext = createContext()
 export const RecordingContextProvider = ({children}) => {
     const [recordings, setRecordings] = useState([])
    
-     
-    const update = (recording, id) => {
-      setRecordings(recordings[id] = recording)
-    }
+    const clearRecents = () => {
+      setRecordings([])
+  }  
+  const update = (recording, id) => {
+    const updatedRecordings = [...recordings];
+    updatedRecordings[id] = recording;
+    setRecordings(updatedRecordings);
+  };
 
     const add = (recording) => {
         setRecordings([...recordings, recording])
@@ -40,9 +44,7 @@ export const RecordingContextProvider = ({children}) => {
           };
       
   
-          const clearRecents = () => {
-            setRecordings([])
-        }
+          
       useEffect(() => {
         loadRecents();
       }, []);
@@ -52,8 +54,8 @@ export const RecordingContextProvider = ({children}) => {
       }, [recordings]);
 
     return(
-    <RecordingContext.Provider value = {{ recordings, add: add, clear: clearRecents, update: update }}>
-{children}
+      <RecordingContext.Provider value={{ recordings, add, clear: clearRecents, update }}>
+      {children}
     </RecordingContext.Provider>
     )
 }

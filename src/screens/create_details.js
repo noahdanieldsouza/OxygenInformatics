@@ -4,14 +4,17 @@ import {Text, View, TextInput, TouchableOpacity, StyleSheet} from "react-native"
 import { RecordingContext } from '../infastructure/videocontext';
 import StyledButton from "../components/button";
 import { SafeArea } from "../components/safearea";
+import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-export const Submission = ({ navigation, route }) => {
+export const Submission = ({ navigation, route , source}) => {
 const {recordings, clear, update} = useContext(RecordingContext)
 const [title, setTitle] = useState ("unamed")
 const [instrument, setInstrument] = useState ("no instrument added")
 const video = useRef()
 const [submission, setSubmission] = useState(route.params)
 const { uri } = route.params.uri;
+
 console.log("Submission", uri)
 
 const [isPlaying, setIsPlaying] = useState(false);
@@ -24,11 +27,16 @@ const togglePlayPause = async () => {
   }
   setIsPlaying(!isPlaying);
 };
-
 const Update = () => {
-  setSubmission(submission.title = title, submission.instrument = instrument, submission.uri = uri)
-  update(submission, 0)
+  setSubmission(submission.title = title, submission.instrument = instrument, submission.uri = uri, submission.id = route.params.id)
+  update (submission, submission.id)
+}
+
+const Set = () => {
+  setSubmission(submission.title = title, submission.instrument = instrument, submission.uri = uri, submission.id = recordings.length - 1)
+  update(submission, recordings.length - 1)
   console.log("added", submission)
+  console.log("final", recordings)
 
 }
     return(
@@ -47,11 +55,7 @@ const Update = () => {
         useNativeControls
         resizeMode={ResizeMode.COVER}
         isLooping = {false}
-        onPlaybackStatusUpdate={status => {
-          if (status.isPlaying !== isPlaying) {
-            setIsPlaying(status.isPlaying);
-          }
-        }}
+        
         shouldPlay isMuted
       ></Video>
       <View style={styles.buttons}>
@@ -61,7 +65,7 @@ const Update = () => {
         isPlaying ? video.current.pauseAsync() : video.current.playAsync()
       }
     />
-       <StyledButton onPress = {Update}title = {"Submit"}> </StyledButton>
+       <StyledButton onPress={source === "Drafts" ? Update : Set} title = {"Submit"}> </StyledButton>
       </View>
     </View>
     )
