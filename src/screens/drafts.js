@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import { StyleSheet, Text, View, FlatList, ScrollView, SafeAreaView, TouchableOpacity } from "react-native"
-import VideoCard from "../components/videoCard"
+import VideoPlayer from "../components/videoCard"
 import {RecordingContext} from "../infastructure/videocontext"
 import StyledButton from "../components/button"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
@@ -9,8 +9,8 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 
 const Drafts = ({navigation}) => {
-  const handleVideoPress = (uri) => {
-    navigation.navigate('SubmissionScreen', { uri: uri, source: "Drafts" });
+  const handleEditPress = (uri) => {
+    navigation.navigate('SubmissionScreen', { uri: uri, source: 'Drafts' });
   };
 const {recordings, clear} = useContext(RecordingContext)
     return(
@@ -29,9 +29,8 @@ const {recordings, clear} = useContext(RecordingContext)
         style={styles.container}
         data={recordings}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => handleVideoPress(item)}>
-            <VideoCard video={item} />
-          </TouchableOpacity>
+         
+          <VideoPlayer video={item} navigation= {navigation} />
         )}
        
       />

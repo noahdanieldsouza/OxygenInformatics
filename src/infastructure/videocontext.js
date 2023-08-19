@@ -6,6 +6,8 @@ export const RecordingContext = createContext()
 
 export const RecordingContextProvider = ({children}) => {
     const [recordings, setRecordings] = useState([])
+    
+    console.log(recordings)
    
     const clearRecents = () => {
       setRecordings([])

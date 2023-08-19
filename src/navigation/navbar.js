@@ -1,13 +1,8 @@
 // In App.js in a new project
 
 import * as React from 'react';
-import { View, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from '../screens/home';
-import  Drafts from '../screens/drafts';
 import BrowseScreen from '../screens/browse';
-import { NavigationContainer } from '@react-navigation/native';
-import Ionicons from '@expo/vector-icons/Ionicons'
 import { Entypo } from '@expo/vector-icons';
 import { CreateNavigation } from './nav';
 import GoogleLogin from '../screens/googlelogin';

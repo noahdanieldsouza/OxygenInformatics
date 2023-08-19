@@ -1,17 +1,15 @@
 
 import React, { useEffect, useRef } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Card } from 'react-native-paper';
 import { Audio } from 'expo-av';
 import StyledButton from './button';
 
-const VideoPlayer = ({video}) => {
-
+const VideoPlayer = ({ video, navigation }) => {
+  const uri = video.uri;
   const sound = useRef(new Audio.Sound());
-  const uri = video.uri
-  const title = video.title
-  const name = video.instrument
-  console.log("videocard", uri)
+  const title = video.title;
+  console.log("video", uri)
 
   useEffect(() => {
     return () => {
@@ -32,16 +30,30 @@ const VideoPlayer = ({video}) => {
     }
   };
 
+  const handleEditPress = () => {
+    navigation.navigate('SubmissionScreen', { uri: uri, source: 'Drafts' });
+    console.log("function", uri)
+  };
+
+  const handleDuetPress = () => {
+    console.log("function", uri)
+    navigation.navigate('DuetScreen', {uri: uri})
+  }
+
   return (
     <Card>
-      <Card.Title>{title} </Card.Title>
+      <View style={styles.titleContainer}>
+        <Text>{title}</Text>
+      </View>
+      <Card.Title></Card.Title>
       <View>
-     
-    <Card.Cover    resizeMode = "contain" source = {require('../assets/bassoon.png')}/>
-    <StyledButton title = {name}style = {styles.button} onPress={ playAudio}/> 
-    </View>
-    
-  
+        <Card.Cover resizeMode="contain" source={require('../assets/bassoon.png')} />
+        <View style={styles.buttonContainer}>
+        <StyledButton title="Edit" style={styles.button} onPress={() => handleEditPress()} />
+
+          <StyledButton title="Duet" style={styles.button} onPress={() => handleDuetPress()}  />
+        </View>
+      </View>
     </Card>
   );
 };
@@ -53,6 +65,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
+  buttonContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
   button: {
     position: 'absolute',
     top: 0,
@@ -63,6 +79,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'transparent',
   },
-})
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold', // Corrected fontWeight value
+  },
+  titleContainer: {
+    alignItems: 'center',
+  },
+});
 
 export default VideoPlayer;

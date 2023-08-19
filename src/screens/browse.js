@@ -1,10 +1,6 @@
 import React, {useState, useContext} from "react"
-import {Text, View, SafeAreaView, Button, StyleSheet} from "react-native"
-import StyledButton from "../components/button"
-import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { Video } from 'expo-av';
+import {Text, StyleSheet} from "react-native"
 import { RecordingContext } from "../infastructure/videocontext"
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 
 
